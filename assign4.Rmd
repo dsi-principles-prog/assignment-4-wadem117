@@ -12,13 +12,48 @@ For the regular expression exercises, try writing first using regular expression
 
 Create a vector of dates giving the first day of every month in the current year. 
 
+```{r}
+library(tidyverse)
+library(lubridate)
+floor_date(today(), unit="year") + months(0:11)
+```
+
 Write a function that given your birthday (as a date), returns how old you are in years.
 
+```{r}
+how_old <- function(bday) {
+  (bday %--% today()) %/% years(1)
+}
+
+how_old("1994-10-19")
+```
+
 Write a function that given your birthday, returns the day of the week you were born on. 
+
+```{r}
+day_born <- function(date) {
+  strftime(date,'%A')
+}
+
+day_born("1994-10-19")
+```
+
 
 ## R4DS 14.3.2.1
 
 Given the corpus of common words in stringr::words, create regular expressions that find all words that have seven letters or more. (Since this list is long, you might want to use the match argument to str_view() to show only the matching or non-matching words.)
+
+```{r}
+library(RVerbalExpressions)
+
+str_view(stringr::words, "\\w{7,}", match = TRUE)
+
+seven <- rx() %>% 
+  rx_alpha() %>% 
+  rx_multiple(min=7)
+
+str_view(stringr::words, seven, match = TRUE)
+```
 
 ## R4DS 14.3.3.1
 
@@ -26,9 +61,27 @@ Use str_detect to find all words that:
 
 That only contain consonants. (Hint: thinking about matching “not”-vowels.)
 
+```{r}
+no_vowel <- rx() %>% 
+
+str_view(stringr::words, "^[^aeiou]+$", match = TRUE)
+
+
+```
+
+
 Empirically verify the rule “i before e except after c”.
 
+```{r}
+
+```
+
+
 Create a regular expression that will match telephone numbers as commonly written in the US. Split this up into multiple expressions as needed.
+
+```{r}
+
+```
 
 # Part 2
 
