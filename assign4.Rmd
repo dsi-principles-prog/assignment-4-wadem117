@@ -62,25 +62,22 @@ Use str_detect to find all words that:
 That only contain consonants. (Hint: thinking about matching “not”-vowels.)
 
 ```{r}
-no_vowel <- rx() %>% 
-
 str_view(stringr::words, "^[^aeiou]+$", match = TRUE)
-
-
 ```
 
 
 Empirically verify the rule “i before e except after c”.
 
 ```{r}
-
+length(str_subset(stringr::words, "(cei|[^c]ie)")) - 
+  length(str_subset(stringr::words, "(cie|[^c]ei)"))
 ```
 
 
 Create a regular expression that will match telephone numbers as commonly written in the US. Split this up into multiple expressions as needed.
 
 ```{r}
-
+str_view(x, "[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 # Part 2
